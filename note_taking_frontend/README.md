@@ -1,3 +1,15 @@
+<!--
+CRITICAL PROJECT NOTES (DEV/MAINTAINER READ CAREFULLY):
+
+- index.html MUST ALWAYS be present ONLY at the project root; never inside dist/.
+- If a build step outputs dist/index.html, move it to project root and remove the copy from dist/.
+- No dev server, vite config, or script must ever write to or modify .env* or the dist/ folder in development.
+- Vite watcher/server must always have dist/** and .env* in server.watch.ignored, as seen in vite.config.js.
+- .gitignore or .viteignore should include dist/ and .env* for safety.
+- If you see repeated reloads or dev instability, re-validate these invariants first!
+
+-->
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

@@ -3,6 +3,14 @@
 /**
  * PUBLIC_INTERFACE
  * Vite config for Tizen note-taking frontend.
+ * 
+ * CRITICAL PROJECT INVARIANTS:
+ * - index.html must ONLY exist at the project root; it MUST NOT exist inside dist/.
+ * - dist/index.html, if ever generated, MUST be deleted and moved to project root instead.
+ * - The dev server and scripts must NEVER write to or modify files inside dist/ or any .env* file while running
+ *   (these are reserved for build only and must not be watched for reloads).
+ * 
+ * WATCHER & BUILD DETAILS:
  * - Locks dev port to 3000, no auto-port-switch (server.strictPort = true)
  * - Ignores watcher reloads for dist/** and .env* files (server.watch.ignored)
  * - Debounces watcher events, disables polling (server.watch.awaitWriteFinish)
