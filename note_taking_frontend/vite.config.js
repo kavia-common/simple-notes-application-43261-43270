@@ -31,25 +31,39 @@ export default defineConfig({
   server: {
     port: 3000,
     strictPort: true, // do not switch port, fail if 3000 in use
+    // Vite does not hot-reload config by default after 4.0+, but ensure full control:
+    hmr: {
+      // Never restart on config file changes (prevent server reload loop)
+      overlay: true,
+      watch: {
+        // These are deeply ignored, including config itself.
+        ignored: [
+          /^dist(\/|\\|$)/,
+          /\.env(\..*)?$/,
+          /(^|\/|\\)dist(\/|\\|$)/,
+          '**/.env',
+          '**/.env.*',
+          '**/vite.config.js',
+          '**/vite.config.ts'
+        ]
+      }
+    },
     watch: {
-      // Ignore dist/ and .env* changes to avoid reload loops
-      // Also ignore vite.config.js changes so config edits don't restart dev server
+      // Keep existing ignores also at classic level
       ignored: [
         /^dist(\/|\\|$)/,
         /\.env(\..*)?$/,
         /(^|\/|\\)dist(\/|\\|$)/,
-        // Ignore root .env and .env* (cross-platform)
         '**/.env',
         '**/.env.*',
-        // Ignore config file itself from watcher reloads
         '**/vite.config.js',
         '**/vite.config.ts'
       ],
-      usePolling: false, // true if running on Docker or WSL2, otherwise false
+      usePolling: false,
       awaitWriteFinish: {
         stabilityThreshold: 500,
         pollInterval: 100,
-      },
+      }
     },
     fs: {
       strict: true,
@@ -59,7 +73,6 @@ export default defineConfig({
     // Never scan dist (just in case)
     exclude: ['dist']
   },
-  // Prevent .env and dist/* modifications; do not use plugins/scripts to touch these
   build: {
     outDir: 'dist',
     emptyOutDir: true,
