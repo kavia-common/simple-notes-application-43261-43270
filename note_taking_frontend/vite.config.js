@@ -36,7 +36,7 @@ export default defineConfig({
       // Never restart on config file changes (prevent server reload loop)
       overlay: true,
       watch: {
-        // These are deeply ignored, including config itself.
+        // These are deeply ignored, including config itself and editor/IDE temp files.
         ignored: [
           /^dist(\/|\\|$)/,
           /\.env(\..*)?$/,
@@ -44,12 +44,19 @@ export default defineConfig({
           '**/.env',
           '**/.env.*',
           '**/vite.config.js',
-          '**/vite.config.ts'
+          '**/vite.config.ts',
+          '**/.swp',
+          '**/.swx',
+          '**/.tmp',
+          '**/*.tmp',
+          '**/*.swp',
+          '**/.DS_Store',
+          '**/~*',
         ]
       }
     },
     watch: {
-      // Keep existing ignores also at classic level
+      // Keep existing ignores also at classic level and add temp/IDE files
       ignored: [
         /^dist(\/|\\|$)/,
         /\.env(\..*)?$/,
@@ -57,12 +64,19 @@ export default defineConfig({
         '**/.env',
         '**/.env.*',
         '**/vite.config.js',
-        '**/vite.config.ts'
+        '**/vite.config.ts',
+        '**/.swp',
+        '**/.swx',
+        '**/.tmp',
+        '**/*.tmp',
+        '**/*.swp',
+        '**/.DS_Store',
+        '**/~*',
       ],
       usePolling: false,
       awaitWriteFinish: {
-        stabilityThreshold: 500,
-        pollInterval: 100,
+        stabilityThreshold: 800,
+        pollInterval: 110,
       }
     },
     fs: {
