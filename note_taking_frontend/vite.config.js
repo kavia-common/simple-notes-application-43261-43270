@@ -30,13 +30,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    strictPort: true, // do not switch port, fail if 3000 in use
-    // Vite does not hot-reload config by default after 4.0+, but ensure full control:
+    strictPort: true,
+    // Ensure watcher ignores all hazardous files/dirs for dev restarts:
     hmr: {
-      // Never restart on config file changes (prevent server reload loop)
       overlay: true,
       watch: {
-        // These are deeply ignored, including config itself and editor/IDE temp files.
         ignored: [
           /^dist(\/|\\|$)/,
           /\.env(\..*)?$/,
@@ -52,11 +50,12 @@ export default defineConfig({
           '**/*.swp',
           '**/.DS_Store',
           '**/~*',
-        ]
-      }
+          // Explicit: do not restart for config or lock files
+          '**/post_process_status.lock'
+        ],
+      },
     },
     watch: {
-      // Keep existing ignores also at classic level and add temp/IDE files
       ignored: [
         /^dist(\/|\\|$)/,
         /\.env(\..*)?$/,
@@ -72,6 +71,7 @@ export default defineConfig({
         '**/*.swp',
         '**/.DS_Store',
         '**/~*',
+        '**/post_process_status.lock'
       ],
       usePolling: false,
       awaitWriteFinish: {
