@@ -1,3 +1,17 @@
+// PUBLIC_INTERFACE
+/**
+ * PUBLIC_INTERFACE
+ * Vite config for Tizen note-taking frontend.
+ * - Locks dev port to 3000, no auto-port-switch (server.strictPort = true)
+ * - Ignores watcher reloads for dist/** and .env* files (server.watch.ignored)
+ * - Debounces watcher events, disables polling (server.watch.awaitWriteFinish)
+ * - Serves from root (index.html stays at project root)
+ * - Ensures dev never writes to .env or dist
+ * - publicDir is "public" only, never dist
+ * - build.outDir is always dist (for builds), dev server does NOT read/write here.
+ * - No plugins or scripts update .env* or dist during dev
+ * - .gitignore/.viteignore should include dist/ and .env*
+ */
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'

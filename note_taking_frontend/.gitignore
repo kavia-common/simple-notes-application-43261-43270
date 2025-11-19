@@ -1,6 +1,6 @@
+# Node/Vite build output
 dist/
-.env
-.env.*
-node_modules/
 *.log
-post_process_status.lock
+
+# Local env files
+.env*
