@@ -1,0 +1,4 @@
+//
+// This is a placeholder file to ensure Vite's publicDir ('public/') exists for static assets.
+// Actual static files (such as icons, images, etc.) may be placed here in production.
+//

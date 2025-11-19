@@ -1,6 +1,8 @@
-# Node/Vite build output
+# Built folder for production
 dist/
-*.log
-
-# Local env files
+# Vite/Node environment files
 .env*
+# Dependency folders (if any)
+node_modules/
+# VSCode settings (if applicable)
+.vscode/
